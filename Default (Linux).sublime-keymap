@@ -1,0 +1,3 @@
+[
+  { "keys": ["super+k", "super+f"], "command": "quick_new_file" },
+]
