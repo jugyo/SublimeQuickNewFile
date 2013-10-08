@@ -30,6 +30,15 @@ class QuickNewFileCommand(sublime_plugin.WindowCommand):
 
     def new_file(self, directory):
         def on_done(text):
-            self.window.open_file(os.path.join(directory, text))
+            file_path = os.path.join(directory, text)
+            try:
+                os.makedirs(os.path.dirname(file_path))
+            except OSError as e:
+                print(e)
+                pass
+            with open(file_path, 'w') as f:
+                pass
+            self.window.open_file(file_path)
+            sublime.set_timeout(lambda: self.window.run_command("reveal_in_side_bar"), 500)
 
         self.window.show_input_panel("File Name:", '', on_done, None, None)
